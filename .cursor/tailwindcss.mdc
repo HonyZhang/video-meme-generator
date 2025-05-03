@@ -1,0 +1,16 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+{
+  "tailwindVersion": "4.1+",
+  "daisyuiIntegration": "通过 @plugin 方式在 main.css 中引入和配置 daisyUI，不使用 tailwind.config.js 配置 daisyUI",
+  "cssEntry": "src/styles/main.css",
+  "themeConfig": "如需扩展 daisyUI 主题，直接在 main.css 的 @plugin 里配置",
+  "usageNotes": [
+    "所有全局样式和 daisyUI 主题均在 main.css 通过 @import 和 @plugin 配置",
+    "组件和页面入口统一引用 main.css"
+  ]
+}
+

@@ -1,0 +1,11 @@
+node_modules
+.idea
+dist
+build
+public
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.svg
+pnpm-lock.yaml
