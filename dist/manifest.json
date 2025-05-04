@@ -5,7 +5,7 @@
   "description": "Capture video frames and turn them into memes",
   "action": {
     "default_popup": "popup.html",
-    "default_icon": "src/assets/icons/icon.png"
+    "default_icon": "icon.png"
   },
   "background": {
     "service_worker": "src/background.js",
@@ -19,6 +19,6 @@
     }
   ],
   "icons": {
-    "128": "src/assets/icons/icon.png"
+    "128": "icon.png"
   }
 }

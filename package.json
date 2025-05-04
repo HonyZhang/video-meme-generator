@@ -7,7 +7,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite build",
+    "build:watch": "vite build --watch",
     "build": "vite build",
     "preview": "vite preview",
     "lint": "eslint . --ext .js,.ts,.vue",
@@ -44,6 +45,8 @@
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.31.1",
     "vite": "^6.3.4",
+    "vite-plugin-crx-mv3": "^0.1.8",
+    "vite-plugin-static-copy": "^2.3.1",
     "vue-eslint-parser": "^10.1.3"
   }
 }
