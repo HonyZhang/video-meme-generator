@@ -3,11 +3,24 @@ import vue from '@vitejs/plugin-vue';
 import { fileURLToPath } from 'url';
 import tailwindcss from '@tailwindcss/vite';
 import path from 'path';
+import AutoImport from 'unplugin-auto-import/vite';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
-  plugins: [vue(), tailwindcss()],
+  plugins: [
+    vue(),
+    tailwindcss(),
+    AutoImport({
+      imports: ['vue'],
+      dts: 'src/auto-imports.d.ts',
+      eslintrc: {
+        enabled: true,
+        filepath: './.eslintrc-auto-import.json',
+        globalsPropValue: true,
+      },
+    }),
+  ],
   resolve: {
     alias: {
       '@': path.resolve(__dirname, 'src'),
@@ -19,6 +32,7 @@ export default defineConfig({
     rollupOptions: {
       input: {
         popup: path.resolve(__dirname, 'popup.html'),
+        editor: path.resolve(__dirname, 'editor.html'),
         background: path.resolve(__dirname, 'src/background.ts'),
         content: path.resolve(__dirname, 'src/content-scripts/content.ts'),
       },

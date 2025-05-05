@@ -22,12 +22,15 @@
     ]
   },
   "dependencies": {
-    "vue": "^3.5.13"
+    "vue": "^3.5.13",
+    "vue-advanced-cropper": "^2.8.9"
   },
   "devDependencies": {
     "@eslint/js": "^9.26.0",
     "@tailwindcss/vite": "^4.1.5",
+    "@types/chrome": "^0.0.319",
     "@types/node": "^22.15.3",
+    "@types/vue-cropperjs": "^4.1.6",
     "@typescript-eslint/eslint-plugin": "^8.31.1",
     "@typescript-eslint/parser": "^8.31.1",
     "@vitejs/plugin-vue": "^5.2.3",
@@ -44,6 +47,7 @@
     "tailwindcss": "^4.1.5",
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.31.1",
+    "unplugin-auto-import": "^19.1.2",
     "vite": "^6.3.4",
     "vite-plugin-crx-mv3": "^0.1.8",
     "vite-plugin-static-copy": "^2.3.1",
