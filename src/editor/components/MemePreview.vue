@@ -42,22 +42,14 @@ import { nextTick, onMounted, onBeforeUnmount } from 'vue';
 import { useTextDrag } from '../composables/useTextDrag';
 
 const props = defineProps<{
-  memeImage: string | null,
-  textItems: any[],
+  memeImage: string | null;
+  textItems: TextItem[];
 }>();
 const emit = defineEmits(['update:textItems']);
 
-const {
-  imgRef,
-  imgBox,
-  draggingId,
-  updateImgBox,
-  onTextMouseDown,
-  onTextMouseMove,
-  onTextMouseUp,
-} = useTextDrag(props, emit);
+const { imgRef, imgBox, draggingId, updateImgBox, onTextMouseDown } = useTextDrag(props, emit);
 
-function handleImgLoad(e: Event) {
+function handleImgLoad() {
   updateImgBox();
 }
 
@@ -70,4 +62,4 @@ onMounted(() => {
 onBeforeUnmount(() => {
   window.removeEventListener('resize', updateImgBox);
 });
-</script> 
+</script>

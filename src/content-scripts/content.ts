@@ -25,7 +25,7 @@ function getCurrentPlayingVideo(): HTMLVideoElement | null {
   return videos[0] || null;
 }
 
-chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
+chrome.runtime.onMessage.addListener((msg, _sender, sendResponse) => {
   if (msg.type === 'capture-frame') {
     const video = getCurrentPlayingVideo();
     if (!video) {

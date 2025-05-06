@@ -14,7 +14,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
 import MemeCanvas from './components/MemeCanvas.vue';
 import TextListPanel from './components/TextListPanel.vue';
 import ToolbarPanel from './components/ToolbarPanel.vue';
@@ -25,7 +25,7 @@ interface TextItem {
   position: 'top' | 'middle' | 'bottom';
 }
 
-const canvasRef = ref<any>(null);
+const canvasRef = ref<InstanceType<typeof MemeCanvas> | null>(null);
 const image = ref<string | null>(null);
 const hasImage = ref(false);
 const errorMessage = ref('');
@@ -42,7 +42,7 @@ onMounted(async () => {
     }
     image.value = res.image;
     hasImage.value = true;
-  } catch (err) {
+  } catch {
     errorMessage.value = '❌ 当前页面未检测到视频，请打开含视频的页面后再试';
   }
 });
@@ -70,6 +70,6 @@ async function openEditor() {
   const imageBase64 = tempCanvas.toDataURL('image/png');
   await chrome.storage.local.set({ memeImage: imageBase64 });
   const editorUrl = chrome.runtime.getURL('editor.html');
-  chrome.tabs.create({ url: editorUrl });
+  await chrome.tabs.create({ url: editorUrl });
 }
 </script>

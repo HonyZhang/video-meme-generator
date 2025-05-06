@@ -1,6 +1,9 @@
 import { ref } from 'vue';
 
-export function useTextDrag(props: { textItems: any[] }, emit: any) {
+export function useTextDrag(
+  props: { textItems: TextItem[] },
+  emit: (event: string, ...args: unknown[]) => void
+) {
   const imgRef = ref<HTMLImageElement | null>(null);
   const imgBox = ref({ left: 0, top: 0, width: 0, height: 0 });
   const dragOffset = ref({ x: 0, y: 0 });
@@ -69,4 +72,4 @@ export function useTextDrag(props: { textItems: any[] }, emit: any) {
     onTextMouseMove,
     onTextMouseUp,
   };
-} 
+}

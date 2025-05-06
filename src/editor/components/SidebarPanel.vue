@@ -76,8 +76,10 @@
             <div class="flex items-center gap-2">
               <input
                 :value="item.text"
-                @input="e => updateTextItem(item.id, 'text', (e.target as HTMLInputElement)?.value)"
                 class="input flex-1 bg-base-100 text-base-content border-base-300"
+                @input="
+                  (e) => updateTextItem(item.id, 'text', (e.target as HTMLInputElement)?.value)
+                "
               />
               <button class="btn btn-error btn-sm" @click="removeText(item.id)">删除</button>
             </div>
@@ -85,8 +87,11 @@
               <label>字体：</label>
               <select
                 :value="item.fontFamily"
-                @change="e => updateTextItem(item.id, 'fontFamily', (e.target as HTMLSelectElement)?.value)"
                 class="select flex-1 bg-base-100 text-base-content border-base-300"
+                @change="
+                  (e) =>
+                    updateTextItem(item.id, 'fontFamily', (e.target as HTMLSelectElement)?.value)
+                "
               >
                 <option value="Impact">Impact</option>
                 <option value="Arial">Arial</option>
@@ -97,18 +102,27 @@
               <label>颜色：</label>
               <input
                 :value="item.fontColor"
-                @input="e => updateTextItem(item.id, 'fontColor', (e.target as HTMLInputElement)?.value)"
                 type="color"
                 class="input w-10 h-10 bg-base-100 border-base-300"
+                @input="
+                  (e) => updateTextItem(item.id, 'fontColor', (e.target as HTMLInputElement)?.value)
+                "
               />
               <label>大小：</label>
               <input
                 :value="item.fontSize"
-                @input="e => updateTextItem(item.id, 'fontSize', Number((e.target as HTMLInputElement)?.value))"
                 type="number"
                 min="10"
                 max="120"
                 class="input w-15 bg-base-100 text-base-content border-base-300"
+                @input="
+                  (e) =>
+                    updateTextItem(
+                      item.id,
+                      'fontSize',
+                      Number((e.target as HTMLInputElement)?.value)
+                    )
+                "
               />
               <span>px</span>
             </div>
@@ -129,9 +143,9 @@ import { useCropper } from '../composables/useCropper';
 import { useTextItems } from '../composables/useTextItems';
 
 const props = defineProps<{
-  memeImage: string | null,
-  textItems: any[],
-  downloadImage: () => void,
+  memeImage: string | null;
+  textItems: TextItem[];
+  downloadImage: () => void;
 }>();
 const emit = defineEmits(['update:memeImage', 'update:textItems']);
 
@@ -142,20 +156,9 @@ const tabs = [
 const activeTab = ref('imageResize');
 let pendingTab: string | null = null;
 
-const {
-  cropping,
-  cropperRef,
-  startCrop,
-  confirmCrop,
-  cancelCrop,
-} = useCropper(props, emit);
+const { cropping, cropperRef, startCrop, confirmCrop, cancelCrop } = useCropper(props, emit);
 
-const {
-  newText,
-  addText,
-  removeText,
-  updateTextItem,
-} = useTextItems(props, emit);
+const { newText, addText, removeText, updateTextItem } = useTextItems(props, emit);
 
 onMounted(async () => {
   if (!props.memeImage) {
@@ -186,4 +189,4 @@ function onModalCancel() {
   pendingTab = null;
   (document.getElementById('clearTextModal') as HTMLDialogElement)?.close();
 }
-</script> 
+</script>

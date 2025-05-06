@@ -1,12 +1,25 @@
 import { ref } from 'vue';
 
-export function useTextItems(props: { textItems: any[] }, emit: any) {
+interface TextItem {
+  id: number;
+  text: string;
+  x: number;
+  y: number;
+  fontSize: number;
+  fontColor: string;
+  fontFamily: string;
+}
+
+export function useTextItems(
+  props: { textItems: TextItem[] },
+  emit: (event: string, ...args: unknown[]) => void
+) {
   let idCounter = ref(1);
   const newText = ref('');
 
   function addText() {
     if (!newText.value.trim()) return;
-    const newItem = {
+    const newItem: TextItem = {
       id: idCounter.value++,
       text: newText.value.trim(),
       x: 0.5,
@@ -20,10 +33,13 @@ export function useTextItems(props: { textItems: any[] }, emit: any) {
   }
 
   function removeText(id: number) {
-    emit('update:textItems', props.textItems.filter((t) => t.id !== id));
+    emit(
+      'update:textItems',
+      props.textItems.filter((t) => t.id !== id)
+    );
   }
 
-  function updateTextItem(id: number, key: string, value: any) {
+  function updateTextItem<T extends keyof TextItem>(id: number, key: T, value: TextItem[T]) {
     const newItems = props.textItems.map((item) =>
       item.id === id ? { ...item, [key]: value } : item
     );
@@ -36,4 +52,4 @@ export function useTextItems(props: { textItems: any[] }, emit: any) {
     removeText,
     updateTextItem,
   };
-} 
+}

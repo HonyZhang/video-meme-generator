@@ -1,8 +1,15 @@
 import { ref } from 'vue';
 
-export function useCropper(props: { memeImage: string | null }, emit: any) {
+interface CropperInstance {
+  getResult: () => { canvas: HTMLCanvasElement | null };
+}
+
+export function useCropper(
+  _props: { memeImage: string | null },
+  emit: (event: string, ...args: unknown[]) => void
+) {
   const cropping = ref(false);
-  const cropperRef = ref<any>(null);
+  const cropperRef = ref<CropperInstance | null>(null);
 
   function startCrop() {
     cropping.value = true;

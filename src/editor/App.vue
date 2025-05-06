@@ -1,21 +1,20 @@
 <template>
   <div class="flex h-screen">
-    <SidebarPanel
-      :memeImage="memeImage"
-      :textItems="textItems"
-      @update:memeImage="val => memeImage = val"
-      @update:textItems="val => textItems = val"
-      :downloadImage="downloadImage"
+    <sidebar-panel
+      :meme-image="memeImage"
+      :text-items="textItems"
+      :download-image="downloadImage"
+      @update:meme-image="(val) => (memeImage = val)"
+      @update:text-items="(val) => (textItems = val)"
     />
-    <MemePreview
-      :memeImage="memeImage"
-      :textItems="textItems"
-      @update:textItems="val => textItems = val"
+    <meme-preview
+      :meme-image="memeImage"
+      :text-items="textItems"
+      @update:text-items="(val) => (textItems = val)"
     />
   </div>
 </template>
 <script setup lang="ts">
-import { ref, nextTick } from 'vue';
 import SidebarPanel from './components/SidebarPanel.vue';
 import MemePreview from './components/MemePreview.vue';
 
@@ -42,8 +41,6 @@ async function downloadImage() {
     if (img.complete) resolve(true);
     img.onload = resolve;
   });
-  // 计算最大文字尺寸
-  const maxFontSize = Math.max(...textItems.value.map(t => t.fontSize), 32);
   // 创建画布
   const canvas = document.createElement('canvas');
   canvas.width = img.naturalWidth;
