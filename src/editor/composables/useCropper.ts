@@ -1,0 +1,32 @@
+import { ref } from 'vue';
+
+export function useCropper(props: { memeImage: string | null }, emit: any) {
+  const cropping = ref(false);
+  const cropperRef = ref<any>(null);
+
+  function startCrop() {
+    cropping.value = true;
+  }
+
+  function confirmCrop() {
+    if (cropperRef.value) {
+      const canvas = cropperRef.value.getResult().canvas;
+      if (canvas) {
+        emit('update:memeImage', canvas.toDataURL('image/png'));
+        cropping.value = false;
+      }
+    }
+  }
+
+  function cancelCrop() {
+    cropping.value = false;
+  }
+
+  return {
+    cropping,
+    cropperRef,
+    startCrop,
+    confirmCrop,
+    cancelCrop,
+  };
+} 
