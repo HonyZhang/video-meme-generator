@@ -57,10 +57,10 @@ function onTextMouseMove(e: MouseEvent) {
   const boxHeight = box?.height || 8;
   let x = e.clientX - imgBox.value.left - dragOffset.value.x;
   let y = e.clientY - imgBox.value.top - dragOffset.value.y;
-  x = Math.max(10, x);
+  x = Math.max(18, x);
   y = Math.max(4, y);
   if (imgBox.value.width) {
-    x = Math.min(x, imgBox.value.width - boxWidth + 10);
+    x = Math.min(x, imgBox.value.width - boxWidth + 18);
   }
   if (boxHeight && imgBox.value.height) {
     y = Math.min(y, imgBox.value.height - boxHeight + 4);

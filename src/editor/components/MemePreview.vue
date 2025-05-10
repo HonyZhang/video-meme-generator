@@ -16,6 +16,7 @@
 <script setup lang="ts">
 import { useMemeStore } from '../stores/meme';
 import MemeTextItem from './MemeTextItem.vue';
+import type { Cropper } from 'vue-advanced-cropper';
 
 const { image: memeImage, textItems, scale, imgBox } = storeToRefs(useMemeStore());
 

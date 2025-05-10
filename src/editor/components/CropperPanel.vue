@@ -23,7 +23,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import type { Cropper } from 'vue-advanced-cropper';
+import { Cropper } from 'vue-advanced-cropper';
 import 'vue-advanced-cropper/dist/style.css';
 import { useMemeStore } from '../stores/meme';
 

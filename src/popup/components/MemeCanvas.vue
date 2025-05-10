@@ -1,17 +1,17 @@
 <template>
-  <div>
+  <div v-if="!!imageRef" class="w-full aspect-square bg-gray-100 flex items-center justify-center">
     <canvas
-      v-if="!!imageRef"
       ref="canvasEl"
       :width="imageRef.width"
       :height="imageRef.height"
-      class="w-full h-auto max-h-[300px]"
+      class="max-w-full max-h-full"
     />
-    <p v-else class="text-red-500 text-sm text-center">
-      ❌ 当前页面未检测到视频，请打开含视频的页面后再试
-    </p>
   </div>
+  <p v-else class="text-red-500 text-sm text-center">
+    ❌ 当前页面未检测到视频，请打开含视频的页面后再试
+  </p>
 </template>
+
 <script setup lang="ts">
 import { useMemeStore } from '../stores/meme';
 import { ref } from 'vue';

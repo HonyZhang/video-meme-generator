@@ -68,7 +68,7 @@
 import { useMemeStore } from '../stores/meme';
 import type { TextItem } from '@/types/textItems';
 
-const { textItems } = storeToRefs(useMemeStore());
+const { textItems, imgBox } = storeToRefs(useMemeStore());
 
 // 新增文字输入
 const newText = ref('');
@@ -87,7 +87,7 @@ function addText() {
     y: defaultY,
     fontFamily: 'Impact',
     fontColor: '#ffffff',
-    fontSize: 32,
+    fontSize: Math.floor(imgBox.value.height / 12),
   };
   textItems.value.push(newItem);
   newText.value = '';
