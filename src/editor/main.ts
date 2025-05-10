@@ -1,5 +1,10 @@
 import { createApp } from 'vue';
-import App from './App.vue';
-import '@/assets/styles/main.css'; // 或根据你实际样式路径引入
+import App from '@/editor/App.vue';
+import { createPinia } from 'pinia';
 
-createApp(App).mount('#app');
+import '@/assets/styles/main.css';
+import '@/assets/styles/fonts.css';
+
+const app = createApp(App);
+app.use(createPinia());
+app.mount('#app');

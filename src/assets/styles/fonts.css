@@ -1,11 +1,11 @@
-
 @font-face {
-  font-family: 'Alibaba PuHuiTi';
-  src: url('/fonts/AlibabaSans-Regular.otf') format('otf');
-  font-display: swap;
+    font-family: 'Alibaba PuHuiTi';
+    src: url('/fonts/AlibabaSans-Regular.otf') format('opentype');
+    font-display: swap;
 }
+
 @font-face {
     font-family: 'Smiley Sans';
     src: url('/fonts/SmileySans-Oblique.ttf') format('truetype');
     font-display: swap;
-  }
+}

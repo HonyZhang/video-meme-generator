@@ -9,57 +9,36 @@
         class="object-contain max-w-full max-h-full rounded shadow bg-black"
         @load="handleImgLoad"
       />
-      <div
-        v-for="item in textItems"
-        :id="'text-box-' + item.id"
-        :key="item.id"
-        class="absolute pointer-events-auto flex items-start justify-center select-none0"
-        :style="{
-          left: imgBox.left + item.x * imgBox.width + 'px',
-          top: imgBox.top + item.y * imgBox.height + 'px',
-          fontSize: item.fontSize + 'px',
-          color: item.fontColor,
-          textShadow: '2px 2px 4px #000',
-          fontFamily: item.fontFamily,
-          cursor: draggingId === item.id ? 'grabbing' : 'grab',
-          userSelect: 'none',
-          position: 'absolute',
-          zIndex: 10,
-        }"
-        @mousedown="(e) => onTextMouseDown(e, item.id)"
-      >
-        <div
-          class="w-max text-center border-2 border-dashed border-base-100 rounded-md px-2 py-0.5 box-border pointer-events-none leading-none"
-        >
-          {{ item.text }}
-        </div>
-      </div>
+      <meme-text-item v-for="item in textItems" :key="item.id" :text-item-id="item.id" />
     </div>
   </div>
 </template>
 <script setup lang="ts">
-import { nextTick, onMounted, onBeforeUnmount } from 'vue';
-import { useTextDrag } from '../composables/useTextDrag';
+import { useMemeStore } from '../stores/meme';
+import MemeTextItem from './MemeTextItem.vue';
 
-const props = defineProps<{
-  memeImage: string | null;
-  textItems: TextItem[];
-}>();
-const emit = defineEmits(['update:textItems']);
+const { image: memeImage, textItems, scale, imgBox } = storeToRefs(useMemeStore());
 
-const { imgRef, imgBox, draggingId, updateImgBox, onTextMouseDown } = useTextDrag(props, emit);
+// 图片引用和盒子尺寸
+const imgRef = ref<HTMLImageElement | null>(null);
 
 function handleImgLoad() {
-  updateImgBox();
+  if (!imgRef.value) return;
+  const rect = imgRef.value.getBoundingClientRect();
+  const parentRect = imgRef.value.parentElement!.getBoundingClientRect();
+  imgBox.value = {
+    left: rect.left - parentRect.left,
+    top: rect.top - parentRect.top,
+    width: rect.width,
+    height: rect.height,
+  };
+  scale.value = imgBox.value.width / imgRef.value.naturalWidth;
+  // 缩放 textItems
+  textItems.value = textItems.value.map((item) => ({
+    ...item,
+    x: item.x * scale.value,
+    y: item.y * scale.value,
+    fontSize: item.fontSize * scale.value,
+  }));
 }
-
-onMounted(() => {
-  window.addEventListener('resize', () => {
-    updateImgBox();
-    nextTick(() => {});
-  });
-});
-onBeforeUnmount(() => {
-  window.removeEventListener('resize', updateImgBox);
-});
 </script>

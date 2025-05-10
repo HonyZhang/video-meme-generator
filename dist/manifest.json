@@ -8,14 +8,14 @@
     "default_icon": "icon.png"
   },
   "background": {
-    "service_worker": "src/background.js",
+    "service_worker": "src/popup/background.js",
     "type": "module"
   },
   "permissions": ["scripting", "tabs", "activeTab", "storage"],
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
-      "js": ["src/content-scripts/content.js"],
+      "js": ["src/popup/content-scripts/content.js"],
       "run_at": "document_start"
     }
   ],

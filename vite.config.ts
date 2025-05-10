@@ -12,7 +12,7 @@ export default defineConfig({
     vue(),
     tailwindcss(),
     AutoImport({
-      imports: ['vue'],
+      imports: ['vue', 'pinia'],
       dts: 'src/auto-imports.d.ts',
       eslintrc: {
         enabled: true,
@@ -33,13 +33,13 @@ export default defineConfig({
       input: {
         popup: path.resolve(__dirname, 'popup.html'),
         editor: path.resolve(__dirname, 'editor.html'),
-        background: path.resolve(__dirname, 'src/background.ts'),
-        content: path.resolve(__dirname, 'src/content-scripts/content.ts'),
+        background: path.resolve(__dirname, 'src/popup/background.ts'),
+        content: path.resolve(__dirname, 'src/popup/content-scripts/content.ts'),
       },
       output: {
         entryFileNames: (chunk) => {
-          if (chunk.name === 'background') return 'src/background.js';
-          if (chunk.name === 'content') return 'src/content-scripts/content.js';
+          if (chunk.name === 'background') return 'src/popup/background.js';
+          if (chunk.name === 'content') return 'src/popup/content-scripts/content.js';
           return '[name].js';
         },
       },

@@ -1,83 +1,85 @@
 <template>
-  <div class="border rounded overflow-hidden">
-    <canvas v-show="hasImage" ref="canvasEl" class="w-full h-auto max-h-[300px]" />
-    <p v-if="errorMessage" class="text-red-500 text-sm text-center">{{ errorMessage }}</p>
+  <div>
+    <canvas
+      v-if="!!imageRef"
+      ref="canvasEl"
+      :width="imageRef.width"
+      :height="imageRef.height"
+      class="w-full h-auto max-h-[300px]"
+    />
+    <p v-else class="text-red-500 text-sm text-center">
+      ❌ 当前页面未检测到视频，请打开含视频的页面后再试
+    </p>
   </div>
 </template>
 <script setup lang="ts">
-import { defineEmits, defineProps, ref, watch } from 'vue';
+import { useMemeStore } from '../stores/meme';
+import { ref } from 'vue';
+import { loadImage } from '@/popup/utils/imageUtils.ts';
 
-const props = defineProps<{
-  image: string | null;
-  textItems: Array<{ id: number; text: string; position: string }>;
-  errorMessage: string;
-  hasImage: boolean;
-}>();
-const emit = defineEmits(['download']);
-
+const { image, textItems, imageWidth, imageHeight, margin, downloadTrigger } =
+  storeToRefs(useMemeStore());
+const { resetDownloadTrigger } = useMemeStore();
 const canvasEl = ref<HTMLCanvasElement | null>(null);
 const imageRef = ref<HTMLImageElement | null>(null);
 
-watch(
-  () => props.image,
-  (val) => {
-    if (val) {
-      const img = new window.Image();
-      img.onload = () => {
-        imageRef.value = img;
-        draw();
-      };
-      img.src = val;
+// 监听图片变化，只在图片加载完成后绘制一次并存储宽高
+watch(image, async (val) => {
+  console.log('image变化', val);
+  if (val) {
+    imageRef.value = await loadImage(val);
+    await nextTick();
+    console.log('imageRef', imageRef.value);
+    if (!canvasEl.value || !imageRef.value) {
+      console.log('canvasEl 或 imageRef 为空');
+      return;
+    }
+    const ctx = canvasEl.value.getContext('2d');
+    if (ctx) {
+      console.log('开始绘制图片');
+      ctx.drawImage(imageRef.value, 0, 0);
+    }
+    imageWidth.value = imageRef.value.width;
+    imageHeight.value = imageRef.value.height;
+
+    // 计算margin
+    if (imageHeight.value && imageWidth.value) {
+      const minSide = Math.min(imageWidth.value, imageHeight.value);
+      margin.value = minSide * 0.03;
     }
   }
-);
+});
 
+// 监听文字变化，只在宽高已知时重绘内容
 watch(
-  () => props.textItems,
-  () => {
-    draw();
+  textItems,
+  async () => {
+    if (!canvasEl.value || !imageRef.value) return;
+    const ctx = canvasEl.value.getContext('2d');
+    if (!ctx) return;
+    ctx.drawImage(imageRef.value, 0, 0);
+    textItems.value.forEach((item) => {
+      if (!item.text.trim()) return;
+      ctx.font = `${item.fontSize}px ${item.fontFamily || 'sans-serif'}`;
+      ctx.fillStyle = item.fontColor || 'white';
+      ctx.textAlign = 'left';
+      ctx.textBaseline = 'top';
+      ctx.fillText(item.text, item.x, item.y);
+    });
   },
   { deep: true }
 );
 
-function draw() {
-  const canvas = canvasEl.value;
-  const img = imageRef.value;
-  if (!canvas || !img) return;
-  const ctx = canvas.getContext('2d')!;
-  canvas.width = img.width;
-  canvas.height = img.height;
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.drawImage(img, 0, 0);
-  const fontSize = Math.floor(canvas.height / 12);
-  ctx.font = `${fontSize}px Impact, sans-serif`;
-  ctx.fillStyle = 'white';
-  ctx.strokeStyle = 'black';
-  ctx.textAlign = 'center';
-  ctx.textBaseline = 'middle';
-  ctx.lineWidth = 3;
-  const positions = {
-    top: 50,
-    middle: canvas.height / 2,
-    bottom: canvas.height - 50,
-  };
-  props.textItems.forEach((item) => {
-    const y = positions[item.position as 'top' | 'middle' | 'bottom'];
-    if (!item.text.trim()) return;
-    ctx.fillText(item.text.toUpperCase(), canvas.width / 2, y);
-    ctx.strokeText(item.text.toUpperCase(), canvas.width / 2, y);
-  });
-}
-
-function download() {
-  const canvas = canvasEl.value;
-  if (!canvas) return;
-  const a = document.createElement('a');
-  a.download = 'meme.png';
-  a.href = canvas.toDataURL('image/png');
-  a.click();
-  emit('download');
-}
-
-defineExpose({ download });
+// 监听下载触发变化
+watch(downloadTrigger, (val) => {
+  if (val > 0) {
+    if (canvasEl.value) {
+      const a = document.createElement('a');
+      a.download = 'meme.png';
+      a.href = canvasEl.value.toDataURL('image/png');
+      a.click();
+    }
+    resetDownloadTrigger();
+  }
+});
 </script>
