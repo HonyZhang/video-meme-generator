@@ -1,0 +1,62 @@
+{
+  "popup_title": {
+    "message": "🎬 Meme Generator"
+  },
+  "popup_loading": {
+    "message": "Loading..."
+  },
+  "popup_add_text": {
+    "message": "Add"
+  },
+  "popup_input_placeholder": {
+    "message": "Enter text"
+  },
+  "popup_position_top": {
+    "message": "Top"
+  },
+  "popup_position_middle": {
+    "message": "Middle"
+  },
+  "popup_position_bottom": {
+    "message": "Bottom"
+  },
+  "popup_download": {
+    "message": "💾 Download"
+  },
+  "popup_remove_text": {
+    "message": "Remove"
+  },
+  "popup_open_editor": {
+    "message": "🧩 Advanced Edit"
+  },
+  "popup_download_failed": {
+    "message": "Download failed, please try again"
+  },
+  "popup_open_failed": {
+    "message": "Failed to open editor"
+  },
+  "popup_no_image": {
+    "message": "Please load an image first"
+  },
+  "popup_download_title": {
+    "message": "Download current meme image"
+  },
+  "popup_open_title": {
+    "message": "Open advanced editor"
+  },
+  "popup_no_video_tip": {
+    "message": "❌ No video found. Please open a page with video."
+  },
+  "editor_title": {
+    "message": "Advanced Editor"
+  },
+  "editor_crop": {
+    "message": "Crop"
+  },
+  "editor_save": {
+    "message": "Save"
+  },
+  "editor_cancel": {
+    "message": "Cancel"
+  }
+}

@@ -1,0 +1,13 @@
+diff --git a/lib/node.js b/lib/node.js
+index 2b865ba373271ac8d2efe90086b5fb073f323953..e764487ccb910e3889fdc3b40e2db9ab56ff3cdb 100644
+--- a/lib/node.js
++++ b/lib/node.js
+@@ -383,7 +383,7 @@ class Node {
+         })
+       } else if (typeof value === 'object' && value.toJSON) {
+         fixed[name] = value.toJSON(null, inputs)
+-      } else if (name === 'source') {
++      } else if (name === 'source' && value?.input) {
+         let inputId = inputs.get(value.input)
+         if (inputId == null) {
+           inputId = inputsNextIndex

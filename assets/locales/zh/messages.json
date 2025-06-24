@@ -1,0 +1,62 @@
+{
+  "popup_title": {
+    "message": "🎬 表情图生成器"
+  },
+  "popup_loading": {
+    "message": "加载中..."
+  },
+  "popup_add_text": {
+    "message": "添加"
+  },
+  "popup_input_placeholder": {
+    "message": "添加文字"
+  },
+  "popup_position_top": {
+    "message": "顶部"
+  },
+  "popup_position_middle": {
+    "message": "中部"
+  },
+  "popup_position_bottom": {
+    "message": "底部"
+  },
+  "popup_remove_text": {
+    "message": "删除"
+  },
+  "popup_download": {
+    "message": "💾 下载"
+  },
+  "popup_open_editor": {
+    "message": "🧩 高级定制"
+  },
+  "popup_download_failed": {
+    "message": "下载失败，请重试"
+  },
+  "popup_open_failed": {
+    "message": "打开失败，请重试"
+  },
+  "popup_no_image": {
+    "message": "请先加载截图"
+  },
+  "popup_download_title": {
+    "message": "下载当前表情图"
+  },
+  "popup_open_title": {
+    "message": "打开高级编辑器"
+  },
+  "popup_no_video_tip": {
+    "message": "❌ 当前页面未检测到视频，请打开含视频的页面后再试"
+  },
+  "editor_title": {
+    "message": "高级编辑器"
+  },
+  "editor_crop": {
+    "message": "裁剪"
+  },
+  "editor_save": {
+    "message": "保存"
+  },
+  "editor_cancel": {
+    "message": "取消"
+  }
+}

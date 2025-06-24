@@ -1,0 +1,30 @@
+import { useState } from 'react'
+
+import { useEditorStore } from '../stores'
+import Tab from './components/Tab'
+
+export default function ControlPanel() {
+  const { imageElement, setImageElement } = useEditorStore()
+  const [activeTab, setActiveTab] = useState('tab1')
+
+  const tabs = [
+    { id: 'tab1', label: '添加文字' },
+    { id: 'tab2', label: '调整图片' },
+  ]
+
+  return (
+    <div className="flex flex-col gap-2 bg-base-200 w-100 h-full py-4">
+      <div role="tablist" className="tabs w-full border-b-2 border-base-300">
+        {tabs.map((tab) => (
+          <Tab
+            key={tab.id}
+            id={tab.id}
+            label={tab.label}
+            active={activeTab === tab.id}
+            onClick={setActiveTab}
+          />
+        ))}
+      </div>
+    </div>
+  )
+}

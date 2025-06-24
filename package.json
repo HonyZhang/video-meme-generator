@@ -4,28 +4,74 @@
   "version": "0.0.1",
   "description": "Capture video frames and turn them into memes",
   "author": "HonyZhang",
+  "type": "module",
   "scripts": {
     "dev": "plasmo dev",
+    "devlog": "plasmo dev --verbose",
     "build": "plasmo build",
-    "package": "plasmo package"
+    "package": "plasmo package",
+    "prepare": "husky install",
+    "lint": "eslint . --ext .ts,.tsx,.js,.jsx",
+    "lint:fix": "eslint . --ext .ts,.tsx,.js,.jsx --fix",
+    "format": "prettier . --write",
+    "dev:editor": "vite"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,jsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ]
   },
   "dependencies": {
+    "@plasmohq/storage": "^1.15.0",
+    "@tailwindcss/vite": "^4.1.7",
     "plasmo": "0.90.3",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "react-easy-crop": "^5.4.2",
+    "tailwindcss": "^4.1.6",
+    "uuid": "^11.1.0",
+    "zustand": "^5.0.4"
   },
   "devDependencies": {
+    "@eslint/js": "^9.26.0",
     "@ianvs/prettier-plugin-sort-imports": "4.1.1",
+    "@tailwindcss/postcss": "^4.1.6",
     "@types/chrome": "0.0.258",
     "@types/node": "20.11.5",
     "@types/react": "18.2.48",
     "@types/react-dom": "18.2.18",
+    "@typescript-eslint/eslint-plugin": "^8.32.1",
+    "@typescript-eslint/parser": "^8.32.1",
+    "@vitejs/plugin-react": "^4.5.0",
+    "daisyui": "^5.0.35",
+    "eslint": "^9.26.0",
+    "eslint-config-prettier": "^10.1.5",
+    "eslint-plugin-prettier": "^5.4.0",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-tailwindcss": "^3.18.0",
+    "husky": "^8.0.0",
+    "lint-staged": "^16.0.0",
+    "postcss": "^8.5.3",
     "prettier": "3.2.4",
-    "typescript": "5.3.3"
+    "typescript": "5.3.3",
+    "vite": "^6.3.5"
   },
   "manifest": {
     "host_permissions": [
       "https://*/*"
-    ]
+    ],
+    "default_locale": "zh"
+  },
+  "pnpm": {
+    "overrides": {
+      "postcss": "^8.4.38"
+    },
+    "patchedDependencies": {
+      "jiti": "patches/jiti.patch",
+      "@tailwindcss/oxide": "patches/@tailwindcss__oxide.patch",
+      "postcss": "patches/postcss.patch"
+    }
   }
 }

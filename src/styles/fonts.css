@@ -1,0 +1,41 @@
+/* 本地字体定义 - Google Fonts已在main.css中导入 */
+
+@font-face {
+  font-family: 'AlibabaSans';
+  src: url('../../assets/fonts/AlibabaSans-Regular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SmileySans';
+  src: url('../../assets/fonts/SmileySans-Oblique.ttf') format('truetype');
+  font-weight: normal;
+  font-style: oblique;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'CEFFontsCJK';
+  src: url('../../assets/fonts/CEFFontsCJK-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SourceHanSansSC';
+  src: url('../../assets/fonts/SourceHanSansSC-Bold.otf') format('opentype');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'LXGWWenKai';
+  src: url('../../assets/fonts/LXGWWenKai-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
